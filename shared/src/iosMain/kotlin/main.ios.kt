@@ -4,10 +4,9 @@
  */
 @file:Suppress("unused", "FunctionName")
 
-package app.isfa.todolist
-
 import androidx.compose.ui.window.ComposeUIViewController
+import app.isfa.todolist.TodoApp
 
 fun MainViewController() = ComposeUIViewController {
-
+    TodoApp()
 }
