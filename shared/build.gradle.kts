@@ -7,6 +7,7 @@ plugins {
 
 kotlin {
     android()
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -21,6 +22,8 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
+
+        // just add for a local resources (use it if needed)
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
@@ -30,25 +33,24 @@ kotlin {
                 // Coroutines
                 implementation(libs.coroutines.core)
 
-                // Kotlin
-                implementation(libs.kotlin.serialization)
-//                implementation(libs.kotlin.serialization.json)
-
                 // Compose
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
+                // Workaround as per https://youtrack.jetbrains.com/issue/KT-41821
+                implementation("org.jetbrains.kotlinx:atomicfu:0.17.3")
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.test.coroutines)
-                implementation(libs.test.turbine)
-                implementation(kotlin("test"))
-            }
-        }
+//        val commonTest by getting {
+//            dependencies {
+//                implementation(libs.test.coroutines)
+//                implementation(libs.test.turbine)
+//                implementation(kotlin("test"))
+//            }
+//        }
         val androidMain by getting
         val iosX64Main by getting
         val iosArm64Main by getting

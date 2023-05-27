@@ -1,4 +1,4 @@
-rootProject.name = "TODO List"
+rootProject.name = "TODO_List"
 
 include(":androidApp")
 include(":shared")
@@ -11,10 +11,9 @@ pluginManagement {
     }
 
     plugins {
-        kotlin("jvm").version("1.8.10")
-        kotlin("plugin.serialization").version("1.8.10")
-        kotlin("multiplatform").version("1.8.10")
-        kotlin("android").version("1.8.10")
+        kotlin("jvm").version("1.8.20")
+        kotlin("multiplatform").version("1.8.20")
+        kotlin("android").version("1.8.20")
 
         id("com.android.application").version("7.4.2")
         id("com.android.library").version("7.4.2")

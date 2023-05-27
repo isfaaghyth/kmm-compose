@@ -1,7 +1,6 @@
 [versions]
 agp = "7.4.2"
-kotlin = "1.8.10"
-compose = "1.4.0"
+kotlin = "1.8.20"
 androidx = "2.6.1"
 coroutines = "1.6.4"
 test-junit = "4.13.2"
