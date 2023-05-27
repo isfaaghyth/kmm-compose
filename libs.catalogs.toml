@@ -1,0 +1,20 @@
+[versions]
+agp = "7.4.2"
+kotlin = "1.8.10"
+compose = "1.4.0"
+androidx = "2.6.1"
+coroutines = "1.6.4"
+test-junit = "4.13.2"
+test-coroutines = "1.6.4"
+test-turbine = "0.12.1"
+
+[libraries]
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
+
+kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+kotlin-serialization-json = { module = "org.jetbrains.kotlin:kotlin-serialization-json", version.ref = "kotlin" }
+
+test-junit = { module = "junit:junit", version.ref = "test-junit" }
+test-turbine = { module = "app.cash.turbine:turbine", version.ref = "test-turbine" }
+test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "test-coroutines" }
