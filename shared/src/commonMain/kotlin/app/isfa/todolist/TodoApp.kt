@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import app.isfa.todolist.ui.TodoAppContent
 
 @Composable
-fun TodoApp() {
+fun TodoApp(viewModel: TodoViewModelContract) {
     MaterialTheme {
-        TodoAppContent()
+        TodoAppContent(viewModel)
     }
 }
