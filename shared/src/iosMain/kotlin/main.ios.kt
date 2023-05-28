@@ -6,7 +6,10 @@
 
 import androidx.compose.ui.window.ComposeUIViewController
 import app.isfa.todolist.TodoApp
+import app.isfa.todolist.TodoViewModel
 
-fun MainViewController() = ComposeUIViewController {
-    TodoApp()
+fun MainViewController(
+    viewModel: TodoViewModel
+) = ComposeUIViewController {
+    TodoApp(viewModel)
 }

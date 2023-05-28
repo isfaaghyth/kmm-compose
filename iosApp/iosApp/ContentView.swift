@@ -3,8 +3,9 @@ import SwiftUI
 import shared
 
 struct ComposeView: UIViewControllerRepresentable {
+
     func makeUIViewController(context: Context) -> UIViewController {
-        Main_iosKt.MainViewController()
+        Main_iosKt.MainViewController(viewModel: TodoViewModel())
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}

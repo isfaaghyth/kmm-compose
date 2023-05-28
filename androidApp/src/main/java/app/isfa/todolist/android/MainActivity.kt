@@ -6,12 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import app.isfa.todolist.TodoApp
+import app.isfa.todolist.TodoViewModel
+import app.isfa.todolist.TodoViewModelContract
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel = TodoViewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TodoApp()
+            TodoApp(viewModel)
         }
     }
 }
@@ -19,5 +24,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun DefaultPreview() {
-    TodoApp()
+    TodoApp(TodoViewModelContract.empty())
 }
