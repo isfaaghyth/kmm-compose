@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,6 +29,9 @@ fun TodoItem(modifier: Modifier = Modifier, title: String) {
             )
             .padding(8.dp),
     ) {
-        Text(text = title)
+        Text(
+            text = title,
+            style = MaterialTheme.typography.body2
+        )
     }
 }
