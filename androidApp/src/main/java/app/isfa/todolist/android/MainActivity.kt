@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import app.isfa.todolist.TodoApp
 import app.isfa.todolist.TodoViewModel
-import app.isfa.todolist.TodoViewModelContract
 
 class MainActivity : ComponentActivity() {
 
@@ -24,5 +23,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun DefaultPreview() {
-    TodoApp(TodoViewModelContract.empty())
+    TodoApp()
 }
