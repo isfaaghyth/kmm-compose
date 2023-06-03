@@ -1,19 +1,9 @@
 package app.isfa.todolist.data
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import app.isfa.todolist.data.entity.Todo
+
 data class TodoState(
-    val list: MutableList<Todo> = mutableListOf()
-) {
-
-    fun add(item: Todo) {
-        list.add(item)
-    }
-
-    fun remove(item: Todo) {
-        val todo = list.find { it.text == item.text } ?: return
-        val index = list.indexOf(todo)
-
-        if (index > -1) {
-            list.removeAt(index)
-        }
-    }
-}
+    val list: SnapshotStateList<Todo> = mutableStateListOf()
+)
