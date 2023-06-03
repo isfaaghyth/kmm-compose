@@ -6,14 +6,22 @@ coroutines = "1.6.4"
 test-junit = "4.13.2"
 test-coroutines = "1.6.4"
 test-turbine = "0.12.1"
+datetime = "0.4.0"
+uuid = "0.7.1"
+koin = "3.2.0"
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
 
+kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
 kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlin:kotlin-serialization-json", version.ref = "kotlin" }
 
 test-junit = { module = "junit:junit", version.ref = "test-junit" }
 test-turbine = { module = "app.cash.turbine:turbine", version.ref = "test-turbine" }
 test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "test-coroutines" }
+
+common-uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
+common-koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+common-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }

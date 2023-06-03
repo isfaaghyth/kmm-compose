@@ -42,6 +42,13 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
 
+                // Kotlin
+                implementation(libs.kotlin.datetime)
+
+                // Common
+                implementation(libs.common.uuid)
+                implementation(libs.common.koin)
+
                 // Workaround as per https://youtrack.jetbrains.com/issue/KT-41821
                 implementation("org.jetbrains.kotlinx:atomicfu:0.17.3")
             }
@@ -53,7 +60,11 @@ kotlin {
 //                implementation(kotlin("test"))
 //            }
 //        }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                api(libs.common.koin.android)
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
