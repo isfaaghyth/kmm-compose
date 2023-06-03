@@ -1,27 +1,29 @@
 package app.isfa.todolist
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import app.isfa.todolist.data.Todo
+import androidx.compose.runtime.mutableStateListOf
 import app.isfa.todolist.data.TodoEvent
 import app.isfa.todolist.data.TodoState
+import app.isfa.todolist.data.entity.Todo
+import com.benasher44.uuid.uuid4
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 interface TodoViewModelContract {
-    val state: State<TodoState>
+    val state: StateFlow<TodoState>
 
     fun setAction(action: TodoEvent)
 
     companion object {
         fun mock(): TodoViewModelContract {
             return object : TodoViewModelContract {
-                override val state: State<TodoState>
-                    get() = mutableStateOf(TodoState(
-                        list = mutableListOf(
-                            Todo("Foo"),
-                            Todo("Bar"),
-                            Todo("Loren"),
-                            Todo("Ipsum"),
-                            Todo("Barbara")
+                override val state: StateFlow<TodoState>
+                    get() = MutableStateFlow(TodoState(
+                        list = mutableStateListOf(
+                            Todo(uuid4(), "Foo", 0),
+                            Todo(uuid4(), "Bar", 0),
+                            Todo(uuid4(), "Loren", 0),
+                            Todo(uuid4(), "Ipsum", 0),
+                            Todo(uuid4(), "Barbara", 0)
                         )
                     ))
 
