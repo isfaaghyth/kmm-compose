@@ -28,56 +28,96 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.isfa.todolist.TodoViewModelContract
 import app.isfa.todolist.data.TodoEvent
+import app.isfa.todolist.data.TodoState
 import app.isfa.todolist.getPlatform
+import app.isfa.todolist.ui.component.TodoDialog
 import app.isfa.todolist.ui.component.TodoItem
+import com.benasher44.uuid.Uuid
+
+@Composable
+fun ShowAddDialog(
+    state: TodoState,
+    onCloseClicked: (String) -> Unit
+) {
+    var onAddTextChanged by remember { mutableStateOf("") }
+
+    state.isTodoAdd.also { isShown ->
+        if (isShown) {
+            TodoDialog(
+                onCloseClicked = { onCloseClicked(onAddTextChanged) },
+                onTextChanged = { onAddTextChanged = it }
+            )
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun TodoAppContent(viewModel: TodoViewModelContract) {
-    var platformName by remember { mutableStateOf("+") }
-    val state by viewModel.state.collectAsState()
+fun TodoList(
+    state: TodoState,
+    onDismissSwiped: (Uuid) -> Unit
+) {
     val listState = rememberLazyListState()
+
+    LazyColumn(
+        state = listState,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(
+            items = state.list,
+            key = { item ->
+                item.uuid.mostSignificantBits
+            }
+        ) {
+            val dismissState = rememberDismissState()
+
+            if (dismissState.isDismissed(DismissDirection.EndToStart)) {
+                onDismissSwiped(it.uuid)
+            }
+
+            SwipeToDismiss(
+                state = dismissState,
+                directions = setOf(DismissDirection.EndToStart),
+                dismissThresholds = { direction ->
+                    FractionalThreshold(
+                        if (direction == DismissDirection.StartToEnd) 0.25f else 0.5f
+                    )
+                },
+                background = {},
+                dismissContent = {
+                    TodoItem(title = it.text)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun TodoAppContent(viewModel: TodoViewModelContract) {
+    val state by viewModel.state.collectAsState()
+
+    ShowAddDialog(
+        state = state,
+        onCloseClicked = {
+            viewModel.setAction(TodoEvent.Save(it))
+        }
+    )
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        TopAppBar(title = { Text(text = "TODO App") })
+        TopAppBar(title = { Text(text = "TODO-app at ${getPlatform().name}!") })
 
         Box(modifier = Modifier.fillMaxSize()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(
-                    items = state.list,
-                    key = { item ->
-                        item.uuid.mostSignificantBits
-                    }
-                ) {
-                    val dismissState = rememberDismissState()
-
-                    if (dismissState.isDismissed(DismissDirection.EndToStart)) {
-                        viewModel.setAction(TodoEvent.Remove(it.uuid))
-                    }
-
-                    SwipeToDismiss(
-                        state = dismissState,
-                        directions = setOf(DismissDirection.EndToStart),
-                        dismissThresholds = { direction ->
-                            FractionalThreshold(
-                                if (direction == DismissDirection.StartToEnd) 0.25f else 0.5f
-                            )
-                        },
-                        background = {},
-                        dismissContent = {
-                            TodoItem(title = it.text)
-                        }
-                    )
+            TodoList(
+                state = state,
+                onDismissSwiped = {
+                    viewModel.setAction(TodoEvent.Remove(it))
                 }
-            }
+            )
 
             Button(
                 modifier = Modifier
@@ -85,16 +125,10 @@ fun TodoAppContent(viewModel: TodoViewModelContract) {
                     .padding(10.dp),
                 shape = RoundedCornerShape(100),
                 onClick = {
-                    // add note with random number
-                    viewModel.setAction(
-                        TodoEvent.Add("random: ${(1..9).random()}")
-                    )
-
-                    // change the button title name to platform target name
-                    platformName = "+ (${getPlatform().name})"
+                    viewModel.setAction(TodoEvent.Add)
                 }
             ) {
-                Text(platformName)
+                Text("+")
             }
         }
     }
