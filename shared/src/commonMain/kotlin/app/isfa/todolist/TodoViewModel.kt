@@ -34,8 +34,11 @@ class TodoViewModel constructor(
                             repository.onShowAddDialog(true)
                         }
                         is TodoEvent.Save -> {
-                            repository.add(event.text)
                             repository.onShowAddDialog(false)
+
+                            if (event.text.isNotEmpty()) {
+                                repository.add(event.text)
+                            }
                         }
                         is TodoEvent.Remove -> {
                             repository.remove(event.uuid)

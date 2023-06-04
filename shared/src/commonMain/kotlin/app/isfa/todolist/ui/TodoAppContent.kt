@@ -18,7 +18,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberDismissState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,8 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import app.isfa.todolist.TodoViewModelContract
-import app.isfa.todolist.data.TodoEvent
 import app.isfa.todolist.data.TodoState
 import app.isfa.todolist.getPlatform
 import app.isfa.todolist.ui.component.TodoDialog
@@ -44,8 +41,13 @@ fun ShowAddDialog(
     state.isTodoAdd.also { isShown ->
         if (isShown) {
             TodoDialog(
-                onCloseClicked = { onCloseClicked(onAddTextChanged) },
-                onTextChanged = { onAddTextChanged = it }
+                onCloseClicked = {
+                    onCloseClicked(onAddTextChanged)
+                    onAddTextChanged = ""
+                },
+                onTextChanged = {
+                    onAddTextChanged = it
+                }
             )
         }
     }
@@ -96,16 +98,11 @@ fun TodoList(
 }
 
 @Composable
-fun TodoAppContent(viewModel: TodoViewModelContract) {
-    val state by viewModel.state.collectAsState()
-
-    ShowAddDialog(
-        state = state,
-        onCloseClicked = {
-            viewModel.setAction(TodoEvent.Save(it))
-        }
-    )
-
+fun TodoAppContent(
+    state: TodoState,
+    onRemoveClicked: (Uuid) -> Unit,
+    onAddClicked: () -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -114,9 +111,7 @@ fun TodoAppContent(viewModel: TodoViewModelContract) {
         Box(modifier = Modifier.fillMaxSize()) {
             TodoList(
                 state = state,
-                onDismissSwiped = {
-                    viewModel.setAction(TodoEvent.Remove(it))
-                }
+                onDismissSwiped = { onRemoveClicked(it) }
             )
 
             Button(
@@ -124,9 +119,7 @@ fun TodoAppContent(viewModel: TodoViewModelContract) {
                     .align(Alignment.BottomEnd)
                     .padding(10.dp),
                 shape = RoundedCornerShape(100),
-                onClick = {
-                    viewModel.setAction(TodoEvent.Add)
-                }
+                onClick = { onAddClicked() }
             ) {
                 Text("+")
             }

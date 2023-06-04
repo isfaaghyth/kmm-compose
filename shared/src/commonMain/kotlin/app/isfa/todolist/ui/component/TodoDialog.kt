@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -15,12 +19,13 @@ import app.isfa.todolist.utils.Dialog
 
 @Composable
 internal fun TodoDialog(
-    text: String = "",
     onCloseClicked: () -> Unit,
     onTextChanged: (String) -> Unit
 ) {
+    var text by remember { mutableStateOf("") }
+
     Dialog(
-        title = "Edit TODO",
+        title = "Add Todo",
         onCloseRequest = onCloseClicked,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -29,9 +34,12 @@ internal fun TodoDialog(
                 modifier = Modifier
                     .weight(1F)
                     .fillMaxWidth()
-                    .sizeIn(minHeight = 192.dp),
-                label = { Text("Todo text") },
-                onValueChange = onTextChanged,
+                    .sizeIn(minHeight = 56.dp),
+                label = { Text("Please write your todo here...") },
+                onValueChange = {
+                    text = it
+                    onTextChanged(it)
+                },
             )
 
             Spacer(modifier = Modifier.height(8.dp))
