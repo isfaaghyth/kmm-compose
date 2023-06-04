@@ -13,6 +13,7 @@ import com.benasher44.uuid.Uuid
  * Which the event only available for add and remove the data.
  */
 sealed class TodoEvent {
-    class Add(val text: String) : TodoEvent()
+    object Add : TodoEvent()
+    class Save(val text: String) : TodoEvent()
     class Remove(val uuid: Uuid) : TodoEvent()
 }

@@ -30,8 +30,16 @@ class TodoViewModel constructor(
                 .distinctUntilChanged()
                 .collect { event ->
                     when (event) {
-                        is TodoEvent.Add -> repository.add(event.text)
-                        is TodoEvent.Remove -> repository.remove(event.uuid)
+                        is TodoEvent.Add -> {
+                            repository.onShowAddDialog(true)
+                        }
+                        is TodoEvent.Save -> {
+                            repository.add(event.text)
+                            repository.onShowAddDialog(false)
+                        }
+                        is TodoEvent.Remove -> {
+                            repository.remove(event.uuid)
+                        }
                     }
                 }
         }

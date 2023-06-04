@@ -13,6 +13,7 @@ interface TodoRepository {
 
     fun add(text: String)
     fun remove(uuid: Uuid)
+    fun onShowAddDialog(show: Boolean)
 }
 
 class TodoRepositoryImpl : TodoRepository {
@@ -50,5 +51,11 @@ class TodoRepositoryImpl : TodoRepository {
                     list.removeAt(index)
                 }
             }
+    }
+
+    override fun onShowAddDialog(show: Boolean) {
+        _state.value = state.value.copy(
+            isTodoAdd = show
+        )
     }
 }
