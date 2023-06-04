@@ -1,3 +1,4 @@
 TEAM_ID=
 BUNDLE_ID=app.isfa.todolist
 APP_NAME=TODO_List
+TARGET_NAME=TODO_App

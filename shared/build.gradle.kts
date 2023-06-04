@@ -53,16 +53,20 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:atomicfu:0.17.3")
             }
         }
-//        val commonTest by getting {
-//            dependencies {
-//                implementation(libs.test.coroutines)
-//                implementation(libs.test.turbine)
-//                implementation(kotlin("test"))
-//            }
-//        }
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.test.coroutines)
+                implementation(libs.test.turbine)
+                implementation(kotlin("test"))
+            }
+        }
         val androidMain by getting {
             dependencies {
                 api(libs.common.koin.android)
+
+                // as the Preview won't work in commonMain,
+                // let's preview every single the composable component on androidMain part.
+                implementation(compose.preview)
             }
         }
         val iosX64Main by getting
