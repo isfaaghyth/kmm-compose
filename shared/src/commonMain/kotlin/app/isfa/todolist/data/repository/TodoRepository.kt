@@ -3,6 +3,7 @@ package app.isfa.todolist.data.repository
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import app.isfa.todolist.data.entity.Todo
+import app.isfa.todolist.util.currentTime
 import com.benasher44.uuid.Uuid
 import com.benasher44.uuid.uuid4
 import kotlinx.coroutines.flow.Flow
@@ -31,10 +32,17 @@ class TodoRepositoryImpl : TodoRepository {
     }
 
     override fun insertTodo(content: String) {
-
+        data.add(0, createTodoModel(content))
     }
 
     override fun deleteTodo(uuid: Uuid) {
 
     }
+
+    private fun createTodoModel(content: String) =
+        Todo(
+            uuid4(),
+            content,
+            currentTime()
+        )
 }
