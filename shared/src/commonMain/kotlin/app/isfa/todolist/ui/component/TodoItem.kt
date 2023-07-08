@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TodoItem(modifier: Modifier = Modifier, title: String) {
+fun TodoItem(modifier: Modifier = Modifier, content: String) {
     Row(
         modifier = modifier
             .border(
@@ -30,7 +30,7 @@ fun TodoItem(modifier: Modifier = Modifier, title: String) {
             .padding(8.dp),
     ) {
         Text(
-            text = title,
+            text = content,
             style = MaterialTheme.typography.body2
         )
     }
