@@ -7,6 +7,7 @@ sealed class TodoEvent
 
 // user interaction
 object GetTodo : TodoEvent()
+data class AddTodoClicked(val content: String) : TodoEvent()
 
 // effect feedback
 object FeatureEnabled : TodoEvent()

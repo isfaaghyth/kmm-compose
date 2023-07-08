@@ -1,5 +1,6 @@
 package app.isfa.todolist.event
 
+import app.isfa.todolist.effects.AddTodo
 import app.isfa.todolist.effects.FetchTodo
 import app.isfa.todolist.effects.IsFeatureEnabled
 import app.isfa.todolist.effects.TodoEffect
@@ -33,6 +34,11 @@ class TodoUpdate : Update<TodoModel, TodoEvent, TodoEffect> {
                     data = event.data
                 )
             )
+            is AddTodoClicked -> {
+                dispatch(
+                    setOf(AddTodo(event.content))
+                )
+            }
         }
     }
 }
