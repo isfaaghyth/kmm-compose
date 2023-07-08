@@ -1,5 +1,7 @@
 package app.isfa.todolist.data.repository
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import app.isfa.todolist.data.entity.Todo
 import com.benasher44.uuid.Uuid
 import com.benasher44.uuid.uuid4
@@ -9,49 +11,20 @@ import kotlinx.datetime.Clock
 
 interface TodoRepository {
 
-    fun getTodoList(): Flow<List<Todo>>
+    fun getTodoList(): Flow<SnapshotStateList<Todo>>
     fun insertTodo(content: String)
     fun deleteTodo(uuid: Uuid)
 }
 
 class TodoRepositoryImpl : TodoRepository {
 
-    private val data = mutableListOf(
-        Todo(
-            uuid = uuid4(),
-            text = "Foo",
-            createdAt = Clock
-                .System
-                .now()
-                .epochSeconds
-        ),
-        Todo(
-            uuid = uuid4(),
-            text = "Bar",
-            createdAt = Clock
-                .System
-                .now()
-                .epochSeconds
-        ),
-        Todo(
-            uuid = uuid4(),
-            text = "Loren",
-            createdAt = Clock
-                .System
-                .now()
-                .epochSeconds
-        ),
-        Todo(
-            uuid = uuid4(),
-            text = "Ipsum",
-            createdAt = Clock
-                .System
-                .now()
-                .epochSeconds
-        )
-    )
+    private val data = mutableStateListOf<Todo>()
 
-    override fun getTodoList(): Flow<List<Todo>> {
+    init {
+        data.addAll(sampleData)
+    }
+
+    override fun getTodoList(): Flow<SnapshotStateList<Todo>> {
         return flow {
             emit(data)
         }

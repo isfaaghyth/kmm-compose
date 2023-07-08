@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import app.isfa.todolist.data.model.TodoModel
+import app.isfa.todolist.ui.model.TodoModel
 import app.isfa.todolist.getPlatform
 import app.isfa.todolist.ui.component.TodoItem
 import com.benasher44.uuid.Uuid
@@ -32,7 +32,7 @@ fun TodoAppContent(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        TopAppBar(title = { Text(text = "todo-app: @${getPlatform().name}!") })
+        TopAppBar(title = { Text(text = "todo-app: @ ${getPlatform().name}!") })
 
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(

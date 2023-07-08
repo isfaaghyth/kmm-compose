@@ -1,7 +1,7 @@
 package app.isfa.todolist
 
-import app.isfa.todolist.data.model.TodoModel
-import app.isfa.todolist.data.model.TodoState
+import app.isfa.todolist.ui.model.TodoModel
+import app.isfa.todolist.ui.model.TodoState
 import app.isfa.todolist.effects.TodoEffect
 import app.isfa.todolist.event.TodoEvent
 import kotlinx.coroutines.flow.MutableStateFlow

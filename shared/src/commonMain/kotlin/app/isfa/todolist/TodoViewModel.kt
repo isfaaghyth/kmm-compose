@@ -1,35 +1,29 @@
 package app.isfa.todolist
 
-import app.isfa.todolist.data.model.TodoModel
-import app.isfa.todolist.data.model.TodoState
-import app.isfa.todolist.data.repository.FeatureToggleRepository
-import app.isfa.todolist.data.repository.TodoRepository
 import app.isfa.todolist.effects.TodoEffectHandler
 import app.isfa.todolist.event.TodoEvent
 import app.isfa.todolist.event.TodoUpdate
+import app.isfa.todolist.ui.model.TodoModel
+import app.isfa.todolist.ui.model.TodoState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kt.mobius.flow.FlowMobius
-import kt.mobius.functions.Consumer
 import kotlin.coroutines.CoroutineContext
 
 class TodoViewModel constructor(
-    todoRepository: TodoRepository,
-    featureToggle: FeatureToggleRepository,
+    effectHandler: TodoEffectHandler,
+    eventUpdate: TodoUpdate,
 ) : TodoViewModelContract, CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
 
     override val loop = FlowMobius.loop(
-        TodoUpdate(),
-        TodoEffectHandler(
-            todoRepository,
-            featureToggle
-        ).create()
+        eventUpdate,
+        effectHandler.create()
     )
 
     override val model: StateFlow<TodoModel>
