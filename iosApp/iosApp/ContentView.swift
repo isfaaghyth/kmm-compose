@@ -5,9 +5,7 @@ import shared
 struct ComposeView: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> UIViewController {
-        Main_iosKt.MainViewController(viewModel: TodoViewModel(
-            repository: TodoRepositoryImpl()
-        ))
+        Main_iosKt.MainViewController(viewModel: AppDiHelper().viewModel())
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
