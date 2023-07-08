@@ -12,6 +12,7 @@ koin = "3.2.0"
 compose = "1.7.2"
 appcompat = "1.6.1"
 corektx = "1.9.0"
+mobiuskt = "1.0.0-rc02"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -32,3 +33,10 @@ test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 common-uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 common-koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 common-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+
+mobiuskt-core = { module = "org.drewcarlson:mobiuskt-core", version.ref = "mobiuskt" }
+mobiuskt-test = { module = "org.drewcarlson:mobiuskt-test", version.ref = "mobiuskt" }
+mobiuskt-extras = { module = "org.drewcarlson:mobiuskt-extras", version.ref = "mobiuskt" }
+mobiuskt-coroutines = { module = "org.drewcarlson:mobiuskt-coroutines", version.ref = "mobiuskt" }
+mobiuskt-updateGenerator = { module = "org.drewcarlson:mobiuskt-update-generator", version.ref = "mobiuskt" }
+mobiuskt-updateGenerator-api = { module = "org.drewcarlson:mobiuskt-update-generator-api", version.ref = "mobiuskt" }

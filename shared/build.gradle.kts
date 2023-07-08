@@ -49,6 +49,12 @@ kotlin {
                 implementation(libs.common.uuid)
                 implementation(libs.common.koin)
 
+                // Mobius
+                implementation(libs.mobiuskt.core)
+                implementation(libs.mobiuskt.test)
+                implementation(libs.mobiuskt.extras)
+                implementation(libs.mobiuskt.coroutines)
+
                 // Workaround as per https://youtrack.jetbrains.com/issue/KT-41821
                 implementation("org.jetbrains.kotlinx:atomicfu:0.17.3")
             }
