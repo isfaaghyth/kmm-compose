@@ -1,5 +1,6 @@
 package app.isfa.todolist.android
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,9 +17,9 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            TodoApp(viewModel)
-        }
+
+        window.decorView.setBackgroundColor(Color.WHITE)
+        setContent { TodoApp(viewModel) }
     }
 }
 

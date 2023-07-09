@@ -1,61 +1,40 @@
 package app.isfa.todolist.data.repository
 
-import app.isfa.todolist.data.TodoState
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import app.isfa.todolist.data.entity.Todo
 import com.benasher44.uuid.Uuid
 import com.benasher44.uuid.uuid4
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Clock
 
 interface TodoRepository {
-    val state: StateFlow<TodoState>
 
-    fun add(text: String)
-    fun remove(uuid: Uuid)
-    fun onShowAddDialog(show: Boolean)
+    fun getTodoList(): Flow<SnapshotStateList<Todo>>
+    fun insertTodo(content: String)
+    fun deleteTodo(uuid: Uuid)
 }
 
 class TodoRepositoryImpl : TodoRepository {
 
-    override val state: StateFlow<TodoState>
-        get() = _state
+    private val data = mutableStateListOf<Todo>()
 
-    private val _state = MutableStateFlow(TodoState())
-
-    override fun add(text: String) {
-        _state.value = state.value.copy()
-            .also {
-                it.list.add(
-                    Todo(
-                        uuid = uuid4(),
-                        text = text,
-                        createdAt = Clock
-                            .System
-                            .now()
-                            .epochSeconds
-                    )
-                )
-            }
+    init {
+        data.addAll(sampleData)
     }
 
-    override fun remove(uuid: Uuid) {
-        _state.value = state.value.copy()
-            .also { state ->
-                val list = state.list
-
-                val todo = list.find { it.uuid == uuid } ?: return
-                val index = list.indexOf(todo)
-
-                if (index > -1) {
-                    list.removeAt(index)
-                }
-            }
+    override fun getTodoList(): Flow<SnapshotStateList<Todo>> {
+        return flow {
+            emit(data)
+        }
     }
 
-    override fun onShowAddDialog(show: Boolean) {
-        _state.value = state.value.copy(
-            isTodoAdd = show
-        )
+    override fun insertTodo(content: String) {
+
+    }
+
+    override fun deleteTodo(uuid: Uuid) {
+
     }
 }
