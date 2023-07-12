@@ -20,6 +20,11 @@ class TodoEffectHandler constructor(
         // feature toggle
         addFunction<IsFeatureEnabled> { featureToggle() }
 
+        // add a new data
+        addConsumer<AddTodo> {
+            todoRepository.insertTodo(it.content)
+        }
+
         // Transform Effect to Event
         addTransformer<FetchTodo> {
             it.flatMapMerge {
